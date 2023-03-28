@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.service.AccidentService;
 
+import java.util.List;
+
 @Controller
 @AllArgsConstructor
 public class AccidentController {
@@ -18,13 +20,16 @@ public class AccidentController {
     @GetMapping("/createAccident")
     public String viewCreateAccident(Model model) {
         model.addAttribute("types", accidentService.findAllTypes());
+        model.addAttribute("rules", accidentService.findAllRules());
         return "createAccident";
     }
 
     @PostMapping("/saveAccident")
-    public String save(@ModelAttribute Accident accident) {
+    public String save(@ModelAttribute Accident accident, @RequestParam("rIds") List<Integer> listIds) {
         var typeOptional = accidentService.findByIdType(accident.getType().getId());
+        var ruleSet = accidentService.findByIdRule(listIds);
         accident.setType(typeOptional.get());
+        accident.setRules(ruleSet);
         accidentService.save(accident);
         return "redirect:/";
     }
@@ -34,13 +39,16 @@ public class AccidentController {
         var accidentOptional = accidentService.findById(id);
         model.addAttribute("accident", accidentOptional.get());
         model.addAttribute("types", accidentService.findAllTypes());
+        model.addAttribute("rules", accidentService.findAllRules());
         return "editAccident";
     }
 
     @PostMapping("/updateAccident")
-    public String update(@ModelAttribute Accident accident) {
+    public String update(@ModelAttribute Accident accident, @RequestParam("rIds") List<Integer> listIds) {
         var typeOptional = accidentService.findByIdType(accident.getType().getId());
+        var ruleSet = accidentService.findByIdRule(listIds);
         accident.setType(typeOptional.get());
+        accident.setRules(ruleSet);
         accidentService.update(accident);
         return "redirect:/";
     }
