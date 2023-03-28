@@ -16,12 +16,15 @@ public class AccidentController {
     private final AccidentService accidentService;
 
     @GetMapping("/createAccident")
-    public String viewCreateAccident() {
+    public String viewCreateAccident(Model model) {
+        model.addAttribute("types", accidentService.findAllTypes());
         return "createAccident";
     }
 
     @PostMapping("/saveAccident")
     public String save(@ModelAttribute Accident accident) {
+        var typeOptional = accidentService.findByIdType(accident.getType().getId());
+        accident.setType(typeOptional.get());
         accidentService.save(accident);
         return "redirect:/";
     }
@@ -30,11 +33,14 @@ public class AccidentController {
     public String getById(@RequestParam("id") int id, Model model) {
         var accidentOptional = accidentService.findById(id);
         model.addAttribute("accident", accidentOptional.get());
+        model.addAttribute("types", accidentService.findAllTypes());
         return "editAccident";
     }
 
     @PostMapping("/updateAccident")
     public String update(@ModelAttribute Accident accident) {
+        var typeOptional = accidentService.findByIdType(accident.getType().getId());
+        accident.setType(typeOptional.get());
         accidentService.update(accident);
         return "redirect:/";
     }
