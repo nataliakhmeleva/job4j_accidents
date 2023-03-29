@@ -60,8 +60,10 @@ public class AccidentMem {
     }
 
     public Set<Rule> findByIdRule(List<Integer> listId) {
-        return rules.values().stream().filter(o -> listId.contains(o.getId())).collect(Collectors.toSet());
-
+        return listId.stream()
+                .map(rules::get)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
     }
 
     public Collection<Rule> findAllRules() {
