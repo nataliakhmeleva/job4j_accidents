@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
+import ru.job4j.accidents.repository.AccidentJdbcTemplate;
 import ru.job4j.accidents.repository.AccidentMem;
 
 import java.util.Collection;
@@ -15,37 +16,37 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class AccidentService {
-    private final AccidentMem accidentMem;
+    private final AccidentJdbcTemplate accidentsRepostiory;
 
     public Accident save(Accident accident) {
-        return accidentMem.save(accident);
+        return accidentsRepostiory.save(accident);
     }
 
     public boolean update(Accident accident) {
-        return accidentMem.update(accident);
+        return accidentsRepostiory.update(accident);
     }
 
     public Optional<Accident> findById(int id) {
-        return accidentMem.findById(id);
+        return accidentsRepostiory.findById(id);
     }
 
-    public Collection<Accident> findAll() {
-        return accidentMem.findAll();
+    public List<Accident> findAll() {
+        return accidentsRepostiory.findAll();
     }
 
     public Optional<AccidentType> findByIdType(int id) {
-        return accidentMem.findByIdType(id);
+        return accidentsRepostiory.findByIdType(id);
     }
 
-    public Collection<AccidentType> findAllTypes() {
-        return accidentMem.findAllTypes();
+    public List<AccidentType> findAllTypes() {
+        return accidentsRepostiory.findAllTypes();
     }
 
     public Set<Rule> findByIdRule(List<Integer> listId) {
-        return accidentMem.findByIdRule(listId);
+        return accidentsRepostiory.findByIdRule(listId);
     }
 
-    public Collection<Rule> findAllRules() {
-        return accidentMem.findAllRules();
+    public List<Rule> findAllRules() {
+        return accidentsRepostiory.findAllRules();
     }
 }
