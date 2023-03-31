@@ -6,10 +6,7 @@ import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
 import ru.job4j.accidents.repository.AccidentHibernate;
-import ru.job4j.accidents.repository.AccidentJdbcTemplate;
-import ru.job4j.accidents.repository.AccidentMem;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
