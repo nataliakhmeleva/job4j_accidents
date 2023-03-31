@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accidents.model.Accident;
 import ru.job4j.accidents.model.AccidentType;
 import ru.job4j.accidents.model.Rule;
+import ru.job4j.accidents.repository.AccidentHibernate;
 import ru.job4j.accidents.repository.AccidentJdbcTemplate;
 import ru.job4j.accidents.repository.AccidentMem;
 
@@ -16,7 +17,7 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class AccidentService {
-    private final AccidentJdbcTemplate accidentsRepostiory;
+    private final AccidentHibernate accidentsRepostiory;
 
     public Accident save(Accident accident) {
         return accidentsRepostiory.save(accident);
