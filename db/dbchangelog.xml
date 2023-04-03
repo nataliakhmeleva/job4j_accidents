@@ -12,4 +12,5 @@
     <include file="scripts/006_dml_insert_rules.sql" relativeToChangelogFile="true"/>
     <include file="scripts/007_dml_insert_accidents.sql" relativeToChangelogFile="true"/>
     <include file="scripts/008_dml_insert_accident_rules.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/security.schema.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
