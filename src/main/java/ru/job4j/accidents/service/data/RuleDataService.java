@@ -24,6 +24,6 @@ public class RuleDataService {
     }
 
     public List<Rule> findAllRules() {
-        return (List<Rule>) ruleRepository.findAll();
+        return ruleRepository.findAll();
     }
 }

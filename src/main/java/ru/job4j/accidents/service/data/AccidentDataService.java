@@ -30,6 +30,6 @@ public class AccidentDataService {
     }
 
     public List<Accident> findAll() {
-        return (List<Accident>) accidentsRepository.findAll();
+        return accidentsRepository.findAll();
     }
 }
