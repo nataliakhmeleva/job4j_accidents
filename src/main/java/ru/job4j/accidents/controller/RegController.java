@@ -13,8 +13,7 @@ import ru.job4j.accidents.service.data.UserDataService;
 
 @Controller
 @AllArgsConstructor
-public class RegControl {
-
+public class RegController {
     private final PasswordEncoder encoder;
     private final UserDataService users;
     private final AuthorityDataService authorities;
@@ -24,11 +23,15 @@ public class RegControl {
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorities.findByAuthority("ROLE_USER"));
-        var isSaved = users.save(user);
-        if (isSaved == null) {
-            model.addAttribute("message", "The user with login already exists");
+        String errorMessage;
+        try {
+            users.save(user);
+            return "redirect:/login";
+        } catch (Exception e) {
+            errorMessage = "The user with login already exists.";
         }
-        return "redirect:/login";
+        model.addAttribute("errorMessage", errorMessage);
+        return "reg";
     }
 
     @GetMapping("/reg")
