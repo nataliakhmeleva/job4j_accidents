@@ -42,6 +42,10 @@ public class AccidentController {
     @GetMapping("/editAccident")
     public String getById(@RequestParam("id") int id, Model model) {
         var accidentOptional = accidentService.findById(id);
+        if (accidentOptional.isEmpty()) {
+            model.addAttribute("message", "No accident with the given ID is found.");
+            return "error";
+        }
         model.addAttribute("accident", accidentOptional.get());
         model.addAttribute("types", accidentTypeService.findAllTypes());
         model.addAttribute("rules", ruleService.findAllRules());
